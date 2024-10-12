@@ -21,18 +21,21 @@ public class Project {
     private Long id;
 
     @Setter
+    @Column(name = "project_title")
     private String title;
-
-    private String contents;
 
     @Enumerated(value = EnumType.STRING)
     @Setter
+    @Column(name = "project_state")
     private State state;
 
     private Long authorId;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     List<ProjectAccount> projectAccounts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project")
+    List<Task> tasks = new ArrayList<>();
 
     private void addProjectAccount(ProjectAccount projectAccount) {
         projectAccounts.add(projectAccount);

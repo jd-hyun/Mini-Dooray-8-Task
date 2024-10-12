@@ -16,19 +16,13 @@ public class ProjectDetailResponse {
     private String title;
     private State state;
     private Long authorId;
-    private List<AccountResponse> members = new ArrayList<>();
+    private List<AccountResponse> members;
 
     public ProjectDetailResponse(Project project) {
         this.id = project.getId();
         this.title = project.getTitle();
         this.state = project.getState();
         this.authorId = project.getAuthorId();
-//        List<ProjectAccount> projectAccounts = project.getProjectAccounts();
-//        for (ProjectAccount projectAccount : projectAccounts) {
-//            Account account = projectAccount.getAccount();
-//            this.members.add(new AccountResponse(account));
-//        }
-
         this.members = project.getProjectAccounts().stream()
                 .map(ProjectAccount::getAccount)
                 .map(AccountResponse::new)
