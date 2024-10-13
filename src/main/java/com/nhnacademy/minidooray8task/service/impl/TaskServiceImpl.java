@@ -5,6 +5,7 @@ import com.nhnacademy.minidooray8task.domain.Project;
 import com.nhnacademy.minidooray8task.domain.Tag;
 import com.nhnacademy.minidooray8task.domain.Task;
 import com.nhnacademy.minidooray8task.dto.CommentResponse;
+import com.nhnacademy.minidooray8task.dto.MilestoneResponse;
 import com.nhnacademy.minidooray8task.dto.TaskResponse;
 import com.nhnacademy.minidooray8task.exception.MilestoneNotFoundException;
 import com.nhnacademy.minidooray8task.exception.ProjectNotFoundException;
@@ -35,7 +36,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponse findByIdAndProjectId(Long id, Long projectId) {
         Project project = projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
-        Task task = taskRepository.findByIdAndProjectIdWithComments(id, projectId).orElseThrow(TaskNotFoundException::new);
+        Task task = taskRepository.findByIdAndProjectIdWithCommentsAndTaskMilestoneAndMilestone(id, projectId).orElseThrow(TaskNotFoundException::new);
 
         List<String> tags = task.getTaskTags().stream()
                 .map(taskTag -> taskTag.getTag().getName())
@@ -45,7 +46,10 @@ public class TaskServiceImpl implements TaskService {
                 .map(comment -> new CommentResponse(comment.getId(), comment.getContents(), comment.getCreatedAt(), id, project.getAuthorId()))
                 .collect(Collectors.toList());
 
-        return new TaskResponse(task.getId(), task.getTitle(), task.getContents(), projectId, tags, commentResponses);
+        Milestone milestone = task.getTaskMilestone().getMilestone();
+        MilestoneResponse milestoneResponse = new MilestoneResponse(milestone.getId(), milestone.getTitle(), milestone.getStartDate(), milestone.getEndDate());
+
+        return new TaskResponse(task.getId(), task.getTitle(), task.getContents(), projectId, tags, commentResponses, milestoneResponse);
     }
 
     @Override
