@@ -32,8 +32,12 @@ public class CommentController {
         return commentService.save(commentRequest.authorId(), taskId, commentRequest.content());
     }
 
-//    @DeleteMapping("/{commentId}")
-//    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-//    public void deleteById(@PathVariable Long projectId,
-//                           @)
+    @DeleteMapping("/{commentId}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long projectId,
+                           @PathVariable Long taskId,
+                           @PathVariable Long commentId) {
+        log.info("projectId : {}, taskId : {}, commentId : {}", projectId, taskId, commentId);
+//        commentService.deleteById()
+    }
 }

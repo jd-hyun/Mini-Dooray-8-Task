@@ -3,6 +3,7 @@ package com.nhnacademy.minidooray8task.service.impl;
 import com.nhnacademy.minidooray8task.domain.Milestone;
 import com.nhnacademy.minidooray8task.domain.Project;
 import com.nhnacademy.minidooray8task.domain.Task;
+import com.nhnacademy.minidooray8task.dto.CommentDetailResponse;
 import com.nhnacademy.minidooray8task.dto.CommentResponse;
 import com.nhnacademy.minidooray8task.dto.MilestoneResponse;
 import com.nhnacademy.minidooray8task.dto.TaskResponse;
@@ -40,14 +41,14 @@ public class TaskServiceImpl implements TaskService {
                 .map(taskTag -> taskTag.getTag().getName())
                 .collect(Collectors.toList());
 
-        List<CommentResponse> commentResponses = task.getComments().stream()
-                .map(comment -> new CommentResponse(comment.getId(), comment.getContents(), comment.getCreatedAt(), id, project.getAuthorId()))
+        List<CommentDetailResponse> commentDetailResponses = task.getComments().stream()
+                .map(comment -> new CommentDetailResponse(comment.getId(), comment.getContents(), comment.getCreatedAt(), project.getAuthorId()))
                 .collect(Collectors.toList());
 
         Milestone milestone = task.getTaskMilestone().getMilestone();
         MilestoneResponse milestoneResponse = new MilestoneResponse(milestone.getId(), milestone.getTitle(), milestone.getStartDate(), milestone.getEndDate());
 
-        return new TaskResponse(task.getId(), task.getTitle(), task.getContents(), projectId, tags, commentResponses, milestoneResponse);
+        return new TaskResponse(task.getId(), task.getTitle(), task.getContents(), projectId, tags, commentDetailResponses, milestoneResponse);
     }
 
     @Override
