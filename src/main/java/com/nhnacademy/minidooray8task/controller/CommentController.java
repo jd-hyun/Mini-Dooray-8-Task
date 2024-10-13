@@ -29,6 +29,11 @@ public class CommentController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public Long save(@PathVariable Long projectId, @PathVariable Long taskId, @RequestBody CommentRequest commentRequest) {
         log.info("projectId : {}, taskId : {}, commentRequest : {}", projectId, taskId, commentRequest.toString());
-        return commentService.save(commentRequest.authorId(), taskId, commentRequest.contents());
+        return commentService.save(commentRequest.authorId(), taskId, commentRequest.content());
     }
+
+//    @DeleteMapping("/{commentId}")
+//    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+//    public void deleteById(@PathVariable Long projectId,
+//                           @)
 }

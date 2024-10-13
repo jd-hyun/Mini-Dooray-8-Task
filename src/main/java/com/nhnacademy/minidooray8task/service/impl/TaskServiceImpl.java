@@ -2,7 +2,6 @@ package com.nhnacademy.minidooray8task.service.impl;
 
 import com.nhnacademy.minidooray8task.domain.Milestone;
 import com.nhnacademy.minidooray8task.domain.Project;
-import com.nhnacademy.minidooray8task.domain.Tag;
 import com.nhnacademy.minidooray8task.domain.Task;
 import com.nhnacademy.minidooray8task.dto.CommentResponse;
 import com.nhnacademy.minidooray8task.dto.MilestoneResponse;
@@ -12,7 +11,6 @@ import com.nhnacademy.minidooray8task.exception.ProjectNotFoundException;
 import com.nhnacademy.minidooray8task.exception.TaskNotFoundException;
 import com.nhnacademy.minidooray8task.repository.MilestoneRepository;
 import com.nhnacademy.minidooray8task.repository.ProjectRepository;
-import com.nhnacademy.minidooray8task.repository.TagRepository;
 import com.nhnacademy.minidooray8task.repository.TaskRepository;
 import com.nhnacademy.minidooray8task.service.TaskService;
 import lombok.RequiredArgsConstructor;
