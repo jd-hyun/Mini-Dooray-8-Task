@@ -34,6 +34,9 @@ public class Task {
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
     private TaskMilestone taskMilestone;
 
+    @OneToMany(mappedBy = "task")
+    private List<Comment> comments;
+
     private void setProject(Project project) {
         this.project = project;
         this.project.tasks.add(this);

@@ -2,18 +2,24 @@ package com.nhnacademy.minidooray8task.service.impl;
 
 import com.nhnacademy.minidooray8task.domain.Milestone;
 import com.nhnacademy.minidooray8task.domain.Project;
+import com.nhnacademy.minidooray8task.domain.Tag;
 import com.nhnacademy.minidooray8task.domain.Task;
+import com.nhnacademy.minidooray8task.dto.CommentResponse;
 import com.nhnacademy.minidooray8task.dto.TaskResponse;
 import com.nhnacademy.minidooray8task.exception.MilestoneNotFoundException;
 import com.nhnacademy.minidooray8task.exception.ProjectNotFoundException;
 import com.nhnacademy.minidooray8task.exception.TaskNotFoundException;
 import com.nhnacademy.minidooray8task.repository.MilestoneRepository;
 import com.nhnacademy.minidooray8task.repository.ProjectRepository;
+import com.nhnacademy.minidooray8task.repository.TagRepository;
 import com.nhnacademy.minidooray8task.repository.TaskRepository;
 import com.nhnacademy.minidooray8task.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,10 +34,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse findByIdAndProjectId(Long id, Long projectId) {
-        projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
-        Task task = taskRepository.findByIdAndProjectId(id, projectId).orElseThrow(TaskNotFoundException::new);
+        Project project = projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
+        Task task = taskRepository.findByIdAndProjectIdWithComments(id, projectId).orElseThrow(TaskNotFoundException::new);
 
-        return new TaskResponse(task.getId(), task.getTitle(), task.getContents(), projectId);
+        List<String> tags = task.getTaskTags().stream()
+                .map(taskTag -> taskTag.getTag().getName())
+                .collect(Collectors.toList());
+
+        List<CommentResponse> commentResponses = task.getComments().stream()
+                .map(comment -> new CommentResponse(comment.getId(), comment.getContents(), comment.getCreatedAt(), id, project.getAuthorId()))
+                .collect(Collectors.toList());
+
+        return new TaskResponse(task.getId(), task.getTitle(), task.getContents(), projectId, tags, commentResponses);
     }
 
     @Override

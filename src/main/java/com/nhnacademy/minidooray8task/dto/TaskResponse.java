@@ -1,4 +1,6 @@
 package com.nhnacademy.minidooray8task.dto;
 
-public record TaskResponse(Long id, String title, String contents, Long projectId) {
+import java.util.List;
+
+public record TaskResponse(Long id, String title, String content, Long projectId, List<String> tags, List<CommentResponse> comments) {
 }

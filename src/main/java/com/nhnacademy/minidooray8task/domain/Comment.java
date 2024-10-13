@@ -29,11 +29,16 @@ public class Comment {
 
     private String authorId;
 
+    private void setTask(Task task) {
+        task.getComments().add(this);
+        this.task = task;
+    }
+
     public static Comment createComment(String contents, Task task, String authorId) {
         Comment comment = new Comment();
         comment.contents = contents;
         comment.createdAt = ZonedDateTime.now();
-        comment.task = task;
+        comment.setTask(task);
         comment.authorId = authorId;
         return comment;
     }
