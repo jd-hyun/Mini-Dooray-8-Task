@@ -12,7 +12,7 @@ public class ProjectDetailResponse {
     private Long id;
     private String title;
     private State state;
-    private Long authorId;
+    private String authorId;
     private List<AccountResponse> members;
     private List<TaskDetailResponse> tasks;
 
