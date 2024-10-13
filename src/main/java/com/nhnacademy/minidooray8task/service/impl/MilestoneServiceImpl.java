@@ -3,6 +3,7 @@ package com.nhnacademy.minidooray8task.service.impl;
 import com.nhnacademy.minidooray8task.domain.Milestone;
 import com.nhnacademy.minidooray8task.domain.Project;
 import com.nhnacademy.minidooray8task.dto.MilestoneResponse;
+import com.nhnacademy.minidooray8task.exception.MilestoneNotFoundException;
 import com.nhnacademy.minidooray8task.exception.ProjectNotFoundException;
 import com.nhnacademy.minidooray8task.repository.MilestoneRepository;
 import com.nhnacademy.minidooray8task.repository.ProjectRepository;
@@ -11,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,5 +39,12 @@ public class MilestoneServiceImpl implements MilestoneService {
         Milestone milestone = Milestone.createMilestone(title, startDate, endDate, project);
         milestoneRepository.save(milestone);
         return milestone.getId();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        milestoneRepository.findById(id)
+                .orElseThrow(() -> new MilestoneNotFoundException("milestone not found : " + id));
+        milestoneRepository.deleteById(id);
     }
 }

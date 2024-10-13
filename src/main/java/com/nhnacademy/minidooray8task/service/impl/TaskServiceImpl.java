@@ -4,7 +4,6 @@ import com.nhnacademy.minidooray8task.domain.Milestone;
 import com.nhnacademy.minidooray8task.domain.Project;
 import com.nhnacademy.minidooray8task.domain.Task;
 import com.nhnacademy.minidooray8task.dto.CommentDetailResponse;
-import com.nhnacademy.minidooray8task.dto.CommentResponse;
 import com.nhnacademy.minidooray8task.dto.MilestoneResponse;
 import com.nhnacademy.minidooray8task.dto.TaskResponse;
 import com.nhnacademy.minidooray8task.exception.MilestoneNotFoundException;

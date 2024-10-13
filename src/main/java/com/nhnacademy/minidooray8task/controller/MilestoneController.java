@@ -31,4 +31,12 @@ public class MilestoneController {
         log.info("projectId : {}, milestoneRequest : {}", projectId, milestoneRequest.toString());
         return milestoneService.save(projectId, milestoneRequest.title(), milestoneRequest.startDate(), milestoneRequest.endDate());
     }
+
+    @DeleteMapping("/{milestoneId}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long projectId,
+                           @PathVariable Long milestoneId) {
+        log.info("projectId : {}, milestoneId : {}", projectId, milestoneId);
+        milestoneService.deleteById(milestoneId);
+    }
 }

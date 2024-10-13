@@ -10,4 +10,6 @@ public interface MilestoneService {
     List<MilestoneResponse> findAllByProjectId(Long projectId);
 
     Long save(Long projectId, String title, LocalDate startDate, LocalDate endDate);
+
+    void deleteById(Long id);
 }
