@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -21,11 +21,20 @@ public class Milestone {
     @Column(name = "milestone_name")
     private String title;
 
-    private ZonedDateTime startDate;
+    private LocalDate startDate;
 
-    private ZonedDateTime endDate;
+    private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    public static Milestone createMilestone(String title, LocalDate startDate, LocalDate endDate, Project project) {
+        Milestone milestone = new Milestone();
+        milestone.title = title;
+        milestone.startDate = startDate;
+        milestone.endDate = endDate;
+        milestone.project = project;
+        return milestone;
+    }
 }

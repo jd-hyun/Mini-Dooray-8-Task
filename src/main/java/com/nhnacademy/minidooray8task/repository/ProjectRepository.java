@@ -8,13 +8,18 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProjectRepository extends JpaRepository<Project, Long> {
-    List<Project> findAllByProjectAccountsAccountId(Long accountId);
+public interface ProjectRepository extends JpaRepository<Project, Long>, ProjectQuerydslRepository {
+    List<Project> findAllByProjectAccountsAuthorId(String authorId);
 
-    @Query("SELECT p FROM Project p " +
-            "JOIN FETCH p.projectAccounts pa " +
-            "WHERE p.id = :projectId")
-    Optional<Project> findByIdWithProjectAccountsAndAccounts(@Param("projectId") Long projectId);
+//    @Query("SELECT p FROM Project p " +
+//            "LEFT JOIN FETCH p.projectAccounts pa " +
+//            "LEFT JOIN FETCH p.tasks t " +
+//            "LEFT JOIN FETCH t.taskTags tt " +
+//            "LEFT JOIN FETCH tt.tag " +
+//            "LEFT JOIN FETCH t.taskMilestone tm " +
+//            "LEFT JOIN FETCH tm.milestone " +
+//            "WHERE p.id = :projectId")
+//    Optional<Project> findByIdWithProjectAccountsAndAccounts(@Param("projectId") Long projectId);
 
     @Query("SELECT p FROM Project p " +
             "LEFT JOIN FETCH p.tasks t " +

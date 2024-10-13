@@ -22,9 +22,9 @@ public class ProjectController {
 
 
     @GetMapping
-    public List<ProjectResponse> findAllByAccountId(@RequestParam Long accountId) {
-        log.info("accountId : {}", accountId);
-        return projectService.findAllByAccountId(accountId);
+    public List<ProjectResponse> findAllByAccountId(@RequestParam String memberId) {
+        log.info("memberId : {}", memberId);
+        return projectService.findAllByAuthorId(memberId);
     }
 
     @GetMapping("/{projectId}")

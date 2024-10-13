@@ -24,7 +24,7 @@ public class TaskController {
     @PostMapping
     public Long save(@PathVariable Long projectId, @RequestBody TaskRequest taskRequest) {
         log.info("projectId : {}, taskRequest : {}", projectId, taskRequest.toString());
-        return taskService.save(taskRequest.title(), taskRequest.contents(), projectId);
+        return taskService.save(taskRequest.title(), taskRequest.contents(), projectId, taskRequest.milestoneId());
 
     }
 }

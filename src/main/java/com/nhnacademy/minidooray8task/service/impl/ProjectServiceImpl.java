@@ -23,9 +23,9 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
 
     @Override
-    public List<ProjectResponse> findAllByAccountId(Long accountId) {
-        return projectRepository.findAllByProjectAccountsAccountId(accountId).stream()
-                .map(ProjectResponse::new)
+    public List<ProjectResponse> findAllByAuthorId(String authorId) {
+        return projectRepository.findAllByProjectAccountsAuthorId(authorId).stream()
+                .map(project -> new ProjectResponse(project.getId(), project.getTitle(), project.getState(), project.getAuthorId()))
                 .toList();
     }
 
@@ -38,7 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public Long save(String title, Long authorId) {
+    public Long save(String title, String authorId) {
         if (projectRepository.existsByTitle(title)) {
             throw new ProjectAlreadyExistsException();
         }

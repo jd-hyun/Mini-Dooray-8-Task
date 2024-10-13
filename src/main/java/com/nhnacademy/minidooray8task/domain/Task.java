@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,16 +28,27 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<TaskTag> taskTags = new ArrayList<>();
+
+    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
+    private TaskMilestone taskMilestone;
+
     private void setProject(Project project) {
         this.project = project;
         this.project.tasks.add(this);
     }
 
-    public static Task createTask(String title, String contents, Project project) {
+    private void setMilestone(Milestone milestone) {
+        this.taskMilestone = new TaskMilestone(this, milestone);
+    }
+
+    public static Task createTask(String title, String contents, Project project, Milestone milestone) {
         Task task = new Task();
         task.title = title;
         task.contents = contents;
         task.setProject(project);
+        task.setMilestone(milestone);
         return task;
     }
 }

@@ -24,12 +24,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentResponse> findAllByTaskId(Long taskId) {
         return commentRepository.findAllByTaskId(taskId).stream()
-                .map(comment -> new CommentResponse(comment.getId(), comment.getContents(), comment.getCreatedAt(), taskId, comment.getAccountId()))
+                .map(comment -> new CommentResponse(comment.getId(), comment.getContents(), comment.getCreatedAt(), taskId, comment.getAuthorId()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Long save(Long authorId, Long taskId, String contents) {
+    public Long save(String authorId, Long taskId, String contents) {
         Task task = taskRepository.findById(taskId).orElseThrow(TaskNotFoundException::new);
 
         Comment comment = Comment.createComment(contents, task, authorId);

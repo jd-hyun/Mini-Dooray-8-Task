@@ -27,14 +27,14 @@ public class Comment {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    private Long accountId;
+    private String authorId;
 
-    public static Comment createComment(String contents, Task task, Long accountId) {
+    public static Comment createComment(String contents, Task task, String authorId) {
         Comment comment = new Comment();
         comment.contents = contents;
         comment.createdAt = ZonedDateTime.now();
         comment.task = task;
-        comment.accountId = accountId;
+        comment.authorId = authorId;
         return comment;
     }
 }

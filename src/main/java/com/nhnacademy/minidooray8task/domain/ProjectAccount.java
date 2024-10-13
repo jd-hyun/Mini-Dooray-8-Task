@@ -25,12 +25,12 @@ public class ProjectAccount {
     @Setter
     private Project project;
 
-    private Long accountId;
+    private String authorId;
 
-    public static ProjectAccount createProjectAccount(Long accountId) {
+    public static ProjectAccount createProjectAccount(String authorId) {
         ProjectAccount projectAccount = new ProjectAccount();
         projectAccount.role = Role.ADMIN;
-        projectAccount.accountId = accountId;
+        projectAccount.authorId = authorId;
 
         return projectAccount;
     }

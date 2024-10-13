@@ -29,12 +29,12 @@ public class Project {
     @Column(name = "project_state")
     private State state;
 
-    private Long authorId;
+    private String authorId;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     List<ProjectAccount> projectAccounts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     List<Task> tasks = new ArrayList<>();
 
     private void addProjectAccount(ProjectAccount projectAccount) {
@@ -42,7 +42,7 @@ public class Project {
         projectAccount.setProject(this);
     }
 
-    public static Project createProject(String title, Long authorId, ProjectAccount... projectAccounts) {
+    public static Project createProject(String title, String authorId, ProjectAccount... projectAccounts) {
         Project project = new Project();
         project.title = title;
         project.state = State.ACTIVE;
