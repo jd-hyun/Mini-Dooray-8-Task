@@ -20,7 +20,7 @@ public class Comment {
     @Column(name = "comment_contents")
     private String contents;
 
-    @Column(name = "comment_createdAt")
+    @Column(name = "comment_created_at")
     private ZonedDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

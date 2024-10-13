@@ -18,7 +18,7 @@ public class Milestone {
     @Column(name = "milestone_id")
     private Long id;
 
-    @Column(name = "milestone_name")
+    @Column(name = "milestone_title")
     private String title;
 
     private LocalDate startDate;
