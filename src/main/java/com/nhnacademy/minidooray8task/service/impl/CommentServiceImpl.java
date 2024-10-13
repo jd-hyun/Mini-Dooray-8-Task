@@ -3,6 +3,7 @@ package com.nhnacademy.minidooray8task.service.impl;
 import com.nhnacademy.minidooray8task.domain.Comment;
 import com.nhnacademy.minidooray8task.domain.Task;
 import com.nhnacademy.minidooray8task.dto.CommentResponse;
+import com.nhnacademy.minidooray8task.exception.CommentNotFoundException;
 import com.nhnacademy.minidooray8task.exception.TaskNotFoundException;
 import com.nhnacademy.minidooray8task.repository.CommentRepository;
 import com.nhnacademy.minidooray8task.repository.TaskRepository;
@@ -36,5 +37,12 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
 
         return comment.getId();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new CommentNotFoundException("comment not found : " + id));
+        commentRepository.deleteById(id);
     }
 }

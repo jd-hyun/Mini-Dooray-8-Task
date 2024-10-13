@@ -8,4 +8,6 @@ public interface CommentService {
     List<CommentResponse> findAllByTaskId(Long taskId);
 
     Long save(String authorId, Long taskId, String contents);
+
+    void deleteById(Long id);
 }

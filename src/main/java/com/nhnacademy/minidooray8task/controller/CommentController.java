@@ -38,6 +38,6 @@ public class CommentController {
                            @PathVariable Long taskId,
                            @PathVariable Long commentId) {
         log.info("projectId : {}, taskId : {}, commentId : {}", projectId, taskId, commentId);
-//        commentService.deleteById()
+        commentService.deleteById(commentId );
     }
 }
