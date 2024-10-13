@@ -24,8 +24,17 @@ public class Comment {
     private ZonedDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_id")
     private Task task;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Account account;
+    private Long accountId;
+
+    public static Comment createComment(String contents, Task task, Long accountId) {
+        Comment comment = new Comment();
+        comment.contents = contents;
+        comment.createdAt = ZonedDateTime.now();
+        comment.task = task;
+        comment.accountId = accountId;
+        return comment;
+    }
 }

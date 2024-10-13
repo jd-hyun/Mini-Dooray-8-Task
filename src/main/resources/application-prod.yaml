@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: nhn_academy_134
+    url: jdbc:mysql://133.186.241.167:3306/nhn_academy_134?serverTimezone=UTC&characterEncoding=UTF-8
+    password: uL7mqlrs!
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: none

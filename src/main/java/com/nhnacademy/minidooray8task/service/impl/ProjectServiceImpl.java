@@ -1,15 +1,12 @@
 package com.nhnacademy.minidooray8task.service.impl;
 
-import com.nhnacademy.minidooray8task.domain.Account;
 import com.nhnacademy.minidooray8task.domain.Project;
 import com.nhnacademy.minidooray8task.domain.ProjectAccount;
 import com.nhnacademy.minidooray8task.domain.State;
 import com.nhnacademy.minidooray8task.dto.ProjectDetailResponse;
 import com.nhnacademy.minidooray8task.dto.ProjectResponse;
-import com.nhnacademy.minidooray8task.exception.AccountNotFoundException;
 import com.nhnacademy.minidooray8task.exception.ProjectAlreadyExistsException;
 import com.nhnacademy.minidooray8task.exception.ProjectNotFoundException;
-import com.nhnacademy.minidooray8task.repository.AccountRepository;
 import com.nhnacademy.minidooray8task.repository.ProjectRepository;
 import com.nhnacademy.minidooray8task.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +21,6 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
-
-    private final AccountRepository accountRepository;
 
     @Override
     public List<ProjectResponse> findAllByAccountId(Long accountId) {
@@ -48,9 +43,7 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ProjectAlreadyExistsException();
         }
 
-        Account account = accountRepository.findById(authorId).orElseThrow(AccountNotFoundException::new);
-
-        ProjectAccount projectAccount = ProjectAccount.createProjectAccount(account);
+        ProjectAccount projectAccount = ProjectAccount.createProjectAccount(authorId);
         Project project = Project.createProject(title, authorId, projectAccount);
         projectRepository.save(project);
         return project.getId();

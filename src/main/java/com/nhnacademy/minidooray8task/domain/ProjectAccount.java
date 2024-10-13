@@ -25,14 +25,12 @@ public class ProjectAccount {
     @Setter
     private Project project;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
+    private Long accountId;
 
-    public static ProjectAccount createProjectAccount(Account account) {
+    public static ProjectAccount createProjectAccount(Long accountId) {
         ProjectAccount projectAccount = new ProjectAccount();
         projectAccount.role = Role.ADMIN;
-        projectAccount.account = account;
+        projectAccount.accountId = accountId;
 
         return projectAccount;
     }
